@@ -84,7 +84,7 @@ export default function Books() {
         `https://openlibrary.org/search.json?q=${encodeURIComponent(query)}&limit=30`
       );
       const data = await response.json();
-      
+
       // Transform the data
       const booksWithDate = data.docs.map((book) => ({
         key: book.key,
@@ -160,141 +160,145 @@ export default function Books() {
 
   return (
     <>
-    <Header />
-    <div className="max-w-6xl mx-auto p-6">
-      {/* Hero Section */}
-      <section className="bg-gray-100 py-16 text-center rounded-lg">
-        <h1 className="text-4xl font-bold mb-4">Discover Amazing Books</h1>
-        <p className="text-gray-600 mb-6">
-          Explore our collection of books from various genres and authors.
-        </p>
-        <a
-          href="#books"
-          className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition"
+      <Header />
+      <div className="max-w-6xl mx-auto p-6">
+        {/* Hero Section */}
+        <section className="bg-gray-100 py-16 text-center rounded-lg">
+          <h1 className="text-4xl font-bold mb-4">Discover Amazing Books</h1>
+          <p className="text-gray-600 mb-6">
+            Explore our collection of books from various genres and authors.
+          </p>
+          <a
+            href="#books"
+            className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition"
+          >
+            Browse Books
+          </a>
+        </section>
+
+        {/* Search Section */}
+        <div className="mt-10 mb-4">
+          <form onSubmit={handleSearch} className="flex gap-2">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search for books..."
+              className="border p-2 rounded-md flex-grow"
+            />
+            <button
+              type="submit"
+              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+            >
+              Search
+            </button>
+          </form>
+        </div>
+
+        {/* Filter Section */}
+        <div className="mt-4 mb-4 flex justify-between items-center">
+          <h2 className="text-2xl font-bold">
+            Books {useExampleData && "(Example Data)"}
+          </h2>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={toggleExampleData}
+              className="text-blue-600 hover:text-blue-800 text-sm"
+            >
+              {useExampleData ? "Load Real Data" : "Show Examples"}
+            </button>
+            <select
+              value={sortOrder}
+              onChange={(e) => handleSortChange(e.target.value)}
+              className="border p-2 rounded-md"
+            >
+              <option value="desc">Newest First</option>
+              <option value="asc">Oldest First</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Loading State */}
+        {isLoading && (
+          <div className="flex justify-center items-center h-40">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+          </div>
+        )}
+
+        {/* Books Grid */}
+        <div
+          id="books"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
         >
-          Browse Books
-        </a>
-      </section>
-
-      {/* Search Section */}
-      <div className="mt-10 mb-4">
-        <form onSubmit={handleSearch} className="flex gap-2">
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search for books..."
-            className="border p-2 rounded-md flex-grow"
-          />
-          <button
-            type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
-          >
-            Search
-          </button>
-        </form>
-      </div>
-
-      {/* Filter Section */}
-      <div className="mt-4 mb-4 flex justify-between items-center">
-        <h2 className="text-2xl font-bold">
-          Books {useExampleData && "(Example Data)"}
-        </h2>
-        <div className="flex items-center gap-4">
-          <button
-            onClick={toggleExampleData}
-            className="text-blue-600 hover:text-blue-800 text-sm"
-          >
-            {useExampleData ? "Load Real Data" : "Show Examples"}
-          </button>
-          <select
-            value={sortOrder}
-            onChange={(e) => handleSortChange(e.target.value)}
-            className="border p-2 rounded-md"
-          >
-            <option value="desc">Newest First</option>
-            <option value="asc">Oldest First</option>
-          </select>
-        </div>
-      </div>
-
-      {/* Loading State */}
-      {isLoading && (
-        <div className="flex justify-center items-center h-40">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-        </div>
-      )}
-
-      {/* Books Grid */}
-      <div
-        id="books"
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
-      >
-        {paginatedBooks.map((book) => (
-          <Link
-            key={book.key}
-            href={`/books/${book.key.replace('/works/', '')}`}
-            className="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition cursor-pointer"
-          >
-            <div className="h-64 bg-gray-200 flex items-center justify-center">
-              {book.cover_i ? (
-                <img
-                  src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
-                  alt={book.title}
-                  className="h-full object-cover"
-                />
-              ) : (
-                <div className="text-gray-400">No Cover Available</div>
-              )}
-            </div>
-            <div className="p-4">
-              <h3 className="font-bold text-lg mb-1 truncate">{book.title}</h3>
-              <p className="text-gray-600 text-sm mb-2">
-                {book.author_name ? book.author_name[0] : "Unknown Author"}
-              </p>
-              {book.first_publish_year && (
-                <p className="text-gray-500 text-xs mb-2">
-                  Published: {book.first_publish_year}
+          {paginatedBooks.map((book) => (
+            <Link
+              key={book.key}
+              href={`/books/${book.key.replace("/works/", "")}`}
+              className="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition cursor-pointer"
+            >
+              <div className="h-64 bg-gray-200 flex items-center justify-center">
+                {book.cover_i ? (
+                  <img
+                    src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
+                    alt={book.title}
+                    className="h-full object-cover"
+                  />
+                ) : (
+                  <div className="text-gray-400">No Cover Available</div>
+                )}
+              </div>
+              <div className="p-4">
+                <h3 className="font-bold text-lg mb-1 truncate">
+                  {book.title}
+                </h3>
+                <p className="text-gray-600 text-sm mb-2">
+                  {book.author_name ? book.author_name[0] : "Unknown Author"}
                 </p>
-              )}
-              <p className="text-gray-500 text-xs">
-                Added: {format(new Date(book.createdAt), "MMM dd, yyyy")}
-              </p>
-            </div>
-          </Link>
-        ))}
+                {book.first_publish_year && (
+                  <p className="text-gray-500 text-xs mb-2">
+                    Published: {book.first_publish_year}
+                  </p>
+                )}
+                <p className="text-gray-500 text-xs">
+                  Added: {format(new Date(book.createdAt), "MMM dd, yyyy")}
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {/* Empty State */}
+        {filteredBooks.length === 0 && !isLoading && (
+          <div className="text-center py-10">
+            <p className="text-gray-500">
+              No books found. Try a different search term.
+            </p>
+          </div>
+        )}
+
+        {/* Pagination */}
+        {filteredBooks.length > 0 && (
+          <div className="flex justify-center mt-6">
+            <button
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage((prev) => prev - 1)}
+              className="px-4 py-2 border rounded-md mx-1 disabled:opacity-50"
+            >
+              Prev
+            </button>
+            <span className="px-4 py-2">
+              {currentPage} / {totalPages}
+            </span>
+            <button
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage((prev) => prev + 1)}
+              className="px-4 py-2 border rounded-md mx-1 disabled:opacity-50"
+            >
+              Next
+            </button>
+          </div>
+        )}
       </div>
-
-      {/* Empty State */}
-      {filteredBooks.length === 0 && !isLoading && (
-        <div className="text-center py-10">
-          <p className="text-gray-500">No books found. Try a different search term.</p>
-        </div>
-      )}
-
-      {/* Pagination */}
-      {filteredBooks.length > 0 && (
-        <div className="flex justify-center mt-6">
-          <button
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage((prev) => prev - 1)}
-            className="px-4 py-2 border rounded-md mx-1 disabled:opacity-50"
-          >
-            Prev
-          </button>
-          <span className="px-4 py-2">
-            {currentPage} / {totalPages}
-          </span>
-          <button
-            disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage((prev) => prev + 1)}
-            className="px-4 py-2 border rounded-md mx-1 disabled:opacity-50"
-          >
-            Next
-          </button>
-        </div>
-      )}
-    </div>
     </>
   );
 }

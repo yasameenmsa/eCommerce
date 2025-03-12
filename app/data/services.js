@@ -1,155 +1,304 @@
 // Example design services data
-const exampleServices = [
+export const exampleServices = [
   {
     id: "service-001",
     title: "Logo Design",
     description: "Professional logo design to establish your brand identity",
-    image: "/images/logo-design.jpg",
+    image:
+      "https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
     price: 299.99,
     category: "Branding",
     deliveryTime: "3-5 days",
     revisions: 3,
-    designer: "Sarah Johnson",
+    designer: {
+      name: "Sarah Johnson",
+      experience: "8+ years",
+      specialization: "Brand Identity Design",
+      image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e",
+      bio: "Award-winning designer with expertise in creating memorable brand identities for startups and enterprises alike.",
+      portfolio: [
+        "https://images.unsplash.com/photo-1626785774573-4b799315345d",
+        "https://images.unsplash.com/photo-1626785774573-4b799315345d",
+        "https://images.unsplash.com/photo-1626785774573-4b799315345d",
+      ],
+    },
     rating: 4.8,
     reviews: 124,
-    createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
-    longDescription: "Our professional logo design service creates a unique visual identity that represents your brand's values and resonates with your target audience. We follow a comprehensive design process that includes research, concept development, and refinement to deliver a logo that stands out in your industry.",
     features: [
-      "Custom-made, original design",
-      "Multiple concept options",
-      "Vector files for scalability",
-      "Full copyright ownership",
-      "Source files included",
-      "Social media kit"
+      "Custom Vector Design",
+      "Multiple File Formats (AI, EPS, PDF, PNG, JPG)",
+      "Brand Color Palette",
+      "Typography Selection",
+      "Unlimited Revisions",
+      "Copyright Transfer",
+      "Brand Guidelines Document",
     ],
     process: [
-      "Initial consultation and brief",
-      "Research and concept development",
-      "Presentation of initial concepts",
-      "Revisions and refinement",
-      "Finalization and delivery of files"
+      "Initial Consultation & Brief",
+      "Research & Concept Development",
+      "Initial Design Concepts (3-4 options)",
+      "Revisions & Refinement",
+      "Final Design & Delivery",
     ],
-    portfolio: [
-      "/images/portfolio1.jpg",
-      "/images/portfolio2.jpg",
-      "/images/portfolio3.jpg"
+    faq: [
+      {
+        question: "What files will I receive?",
+        answer:
+          "You'll receive AI, EPS, PDF, PNG, and JPG files of your final logo design.",
+      },
+      {
+        question: "How many revisions do I get?",
+        answer:
+          "The package includes 3 rounds of revisions after initial concepts.",
+      },
+      {
+        question: "Do I own the copyright?",
+        answer:
+          "Yes, full copyright ownership is transferred to you upon final payment.",
+      },
     ],
-    designerBio: "Sarah Johnson is a senior graphic designer with over 8 years of experience in branding and identity design. She has worked with clients ranging from startups to Fortune 500 companies, helping them establish strong visual identities that drive brand recognition.",
-    designerImage: "/images/designer1.jpg"
+    createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
   },
   {
     id: "service-002",
-    title: "Website UI/UX Design",
-    description: "Custom website design focused on user experience and conversion",
-    image: "/images/web-design.jpg",
-    price: 899.99,
+    title: "Website UI Design",
+    description: "Custom website interface design with modern aesthetics",
+    image:
+      "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+    price: 599.99,
     category: "Web Design",
     deliveryTime: "7-10 days",
     revisions: 5,
-    designer: "Michael Chen",
+    designer: {
+      name: "Michael Chen",
+      experience: "10+ years",
+      specialization: "UI/UX Design",
+      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e",
+      bio: "Passionate UI/UX designer focused on creating intuitive and beautiful web experiences.",
+      portfolio: [
+        "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e",
+        "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e",
+        "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e",
+      ],
+    },
     rating: 4.9,
-    reviews: 87,
-    createdAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
-    longDescription: "Our UI/UX design service creates intuitive, engaging, and conversion-focused websites that deliver exceptional user experiences. We combine aesthetic appeal with functional design to ensure your website not only looks great but also performs effectively to meet your business goals.",
+    reviews: 89,
     features: [
-      "Custom responsive design",
-      "User journey mapping",
-      "Wireframing and prototyping",
-      "Interactive elements",
-      "Mobile-first approach",
-      "Conversion optimization"
+      "Responsive Design for All Devices",
+      "Interactive Prototypes",
+      "Custom UI Elements",
+      "Design System",
+      "User Flow Diagrams",
+      "Figma/Sketch Source Files",
+      "Design Handoff Documentation",
     ],
     process: [
-      "Discovery and user research",
-      "Information architecture",
-      "Wireframing and prototyping",
-      "Visual design and UI elements",
-      "Feedback and iterations",
-      "Handoff to development"
+      "Discovery & Requirements",
+      "Wireframing",
+      "Visual Design",
+      "Interactive Prototyping",
+      "Design System Creation",
+      "Handoff & Documentation",
     ],
-    portfolio: [
-      "/images/portfolio4.jpg",
-      "/images/portfolio5.jpg",
-      "/images/portfolio6.jpg"
+    faq: [
+      {
+        question: "What design tools do you use?",
+        answer: "We primarily work with Figma and Sketch.",
+      },
+      {
+        question: "Can you also implement the design?",
+        answer:
+          "We focus on design only, but can recommend trusted development partners.",
+      },
+      {
+        question: "Do you provide responsive designs?",
+        answer:
+          "Yes, all designs are created for mobile, tablet, and desktop views.",
+      },
     ],
-    designerBio: "Michael Chen is a UX/UI designer with a background in both design and front-end development. With over 10 years of experience, he specializes in creating user-centered digital experiences that balance business goals with user needs.",
-    designerImage: "/images/designer2.jpg"
+    createdAt: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString(),
   },
   {
     id: "service-003",
-    title: "Social Media Graphics",
-    description: "Eye-catching graphics for your social media campaigns",
-    image: "/images/social-media.jpg",
+    title: "Social Media Kit",
+    description: "Complete social media branding package",
+    image:
+      "https://images.unsplash.com/photo-1611926653458-09294b3142bf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
     price: 199.99,
     category: "Social Media",
-    deliveryTime: "2-3 days",
+    deliveryTime: "2-4 days",
     revisions: 2,
-    designer: "Emma Rodriguez",
+    designer: {
+      name: "Emma Wilson",
+      experience: "6+ years",
+      specialization: "Social Media Design",
+      image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e",
+      bio: "Social media design expert specializing in engaging and shareable content.",
+      portfolio: [
+        "https://images.unsplash.com/photo-1611926653458-09294b3142bf",
+        "https://images.unsplash.com/photo-1611926653458-09294b3142bf",
+        "https://images.unsplash.com/photo-1611926653458-09294b3142bf",
+      ],
+    },
     rating: 4.7,
-    reviews: 56,
-    createdAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString(),
-    longDescription: "Our social media graphics service provides eye-catching, on-brand visuals that help you stand out in crowded social feeds. We create engaging content that drives interaction, increases brand awareness, and helps you connect with your audience across all social platforms.",
+    reviews: 156,
     features: [
-      "Platform-specific designs",
-      "Consistent brand styling",
-      "Engagement-optimized graphics",
-      "Animated options available",
-      "Caption suggestions",
-      "Monthly packages available"
+      "Profile Pictures & Banners",
+      "Post Templates (10 designs)",
+      "Story Templates (5 designs)",
+      "Highlight Cover Icons",
+      "Brand Style Guide",
+      "Source Files",
+      "Ready-to-use Templates",
     ],
     process: [
-      "Brand and audience analysis",
-      "Content strategy planning",
-      "Design creation",
-      "Review and refinement",
-      "Final delivery with usage guidelines"
+      "Brand Analysis",
+      "Style Development",
+      "Template Creation",
+      "Asset Package",
+      "Usage Guidelines",
     ],
-    portfolio: [
-      "/images/portfolio7.jpg",
-      "/images/portfolio8.jpg",
-      "/images/portfolio9.jpg"
+    faq: [
+      {
+        question: "Which social platforms are covered?",
+        answer:
+          "We create designs for Instagram, Facebook, Twitter, and LinkedIn.",
+      },
+      {
+        question: "Can I edit the templates myself?",
+        answer:
+          "Yes, we provide editable templates in Canva and Photoshop formats.",
+      },
+      {
+        question: "How many different designs do I get?",
+        answer: "The package includes 10 post templates and 5 story templates.",
+      },
     ],
-    designerBio: "Emma Rodriguez is a creative designer specializing in social media and digital marketing visuals. With 6 years of experience working with brands across various industries, she knows how to create graphics that capture attention and drive engagement in the fast-paced world of social media.",
-    designerImage: "/images/designer3.jpg"
+    createdAt: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).toISOString(),
   },
   {
     id: "service-004",
-    title: "Brand Identity Package",
-    description: "Complete brand identity design including logo, colors, and guidelines",
-    image: "/images/brand-identity.jpg",
-    price: 1499.99,
-    category: "Branding",
+    title: "App Interface Design",
+    description: "Mobile app UI/UX design with user-centric approach",
+    image:
+      "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+    price: 799.99,
+    category: "Mobile Design",
     deliveryTime: "10-14 days",
-    revisions: 5,
-    designer: "Sarah Johnson",
+    revisions: 4,
+    designer: {
+      name: "David Park",
+      experience: "12+ years",
+      specialization: "Mobile App Design",
+      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e",
+      bio: "Experienced mobile app designer with a focus on creating engaging and intuitive user experiences.",
+      portfolio: [
+        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",
+        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",
+        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",
+      ],
+    },
     rating: 4.9,
-    reviews: 42,
-    createdAt: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000).toISOString(),
-    longDescription: "Our comprehensive brand identity package provides everything you need to establish a strong, cohesive brand presence. From logo design to color palettes, typography, and usage guidelines, we create a complete visual system that communicates your brand's values and personality consistently across all touchpoints.",
+    reviews: 78,
     features: [
-      "Logo design (primary and variations)",
-      "Color palette selection",
-      "Typography system",
-      "Brand patterns and elements",
-      "Comprehensive brand guidelines",
-      "Business card and stationery design"
+      "Native iOS & Android Designs",
+      "Custom UI Components",
+      "Interaction Design",
+      "User Flow Mapping",
+      "Prototype & Animations",
+      "Design System",
+      "Developer Handoff",
     ],
     process: [
-      "Discovery and brand strategy",
-      "Research and mood boarding",
-      "Concept development",
-      "Design system creation",
-      "Applications and mockups",
-      "Guidelines compilation and delivery"
+      "User Research",
+      "Information Architecture",
+      "Wireframing",
+      "UI Design",
+      "Prototyping",
+      "Testing & Refinement",
     ],
-    portfolio: [
-      "/images/portfolio10.jpg",
-      "/images/portfolio11.jpg",
-      "/images/portfolio12.jpg"
+    faq: [
+      {
+        question: "Do you design for both iOS and Android?",
+        answer:
+          "Yes, we create designs following platform-specific guidelines.",
+      },
+      {
+        question: "What deliverables are included?",
+        answer:
+          "You'll receive Figma/Sketch files, prototype links, and complete design documentation.",
+      },
+      {
+        question: "Do you offer app icon design?",
+        answer: "Yes, app icon design is included in the package.",
+      },
     ],
-    designerBio: "Sarah Johnson is a senior graphic designer with over 8 years of experience in branding and identity design. She has worked with clients ranging from startups to Fortune 500 companies, helping them establish strong visual identities that drive brand recognition.",
-    designerImage: "/images/designer1.jpg"
-  }
+    createdAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString(),
+  },
+  {
+    id: "service-005",
+    title: "Brand Identity Package",
+    description:
+      "Complete brand identity design including logo, colors, and guidelines",
+    image:
+      "https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+    price: 899.99,
+    category: "Branding",
+    deliveryTime: "14-21 days",
+    revisions: 6,
+    designer: {
+      name: "Sophie Martinez",
+      experience: "15+ years",
+      specialization: "Brand Strategy & Design",
+      image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e",
+      bio: "Strategic brand designer helping businesses build memorable and impactful brand identities.",
+      portfolio: [
+        "https://images.unsplash.com/photo-1524758631624-e2822e304c36",
+        "https://images.unsplash.com/photo-1524758631624-e2822e304c36",
+        "https://images.unsplash.com/photo-1524758631624-e2822e304c36",
+      ],
+    },
+    rating: 5.0,
+    reviews: 92,
+    features: [
+      "Brand Strategy Workshop",
+      "Logo Design (All Formats)",
+      "Color Palette & Typography",
+      "Brand Guidelines Manual",
+      "Stationery Design",
+      "Social Media Templates",
+      "Brand Voice & Messaging",
+    ],
+    process: [
+      "Brand Discovery",
+      "Strategy Development",
+      "Visual Identity Design",
+      "Guidelines Creation",
+      "Asset Development",
+      "Implementation Support",
+    ],
+    faq: [
+      {
+        question: "What's included in the brand guidelines?",
+        answer:
+          "Logo usage, color codes, typography, imagery style, and application examples.",
+      },
+      {
+        question: "Do you provide brand strategy?",
+        answer:
+          "Yes, we include a brand strategy workshop to define your positioning and values.",
+      },
+      {
+        question: "What file formats do I receive?",
+        answer:
+          "All assets in vector and raster formats, plus editable source files.",
+      },
+    ],
+    createdAt: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000).toISOString(),
+  },
 ];
 
-export { exampleServices };
+export const servicesById = exampleServices.reduce((acc, service) => {
+  acc[service.id] = service;
+  return acc;
+}, {});
