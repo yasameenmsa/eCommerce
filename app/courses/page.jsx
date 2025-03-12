@@ -1,11 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
-import Header from "@/components/Header";
-import { exampleCourses } from "@/data/courses";
-import CourseFilters from "@/components/courses/CourseFilters";
-import CourseGrid from "@/components/courses/CourseGrid";
-import CoursePagination from "@/components/courses/CoursePagination";
-import CourseSorting from "@/components/courses/CourseSorting";
+import Header from "../components/Header";
+import { exampleCourses } from "../data/courses";
+import CourseFilters from "../components/courses/CourseFilters";
+import CourseGrid from "../components/courses/CourseGrid";
+import CoursePagination from "../components/courses/CoursePagination";
+import CourseSorting from "../components/courses/CourseSorting";
 
 export default function Courses() {
   const [courses, setCourses] = useState([]);
@@ -31,31 +31,31 @@ export default function Courses() {
   useEffect(() => {
     // Filter courses based on selected filters and search query
     let result = [...courses];
-    
+
     // Filter by category
     if (selectedCategory !== "All") {
-      result = result.filter(course => course.category === selectedCategory);
+      result = result.filter((course) => course.category === selectedCategory);
     }
-    
+
     // Filter by level
     if (selectedLevel !== "All") {
-      result = result.filter(course => course.level === selectedLevel);
+      result = result.filter((course) => course.level === selectedLevel);
     }
-    
+
     // Filter by search query
     if (searchQuery.trim() !== "") {
       const query = searchQuery.toLowerCase();
       result = result.filter(
-        course => 
-          course.title.toLowerCase().includes(query) || 
+        (course) =>
+          course.title.toLowerCase().includes(query) ||
           course.description.toLowerCase().includes(query) ||
           course.instructor.toLowerCase().includes(query)
       );
     }
-    
+
     // Sort courses
     result = sortCourses(result, sortBy);
-    
+
     setFilteredCourses(result);
     setCurrentPage(1); // Reset to first page when filters change
   }, [selectedCategory, selectedLevel, searchQuery, courses, sortBy]);
@@ -64,7 +64,9 @@ export default function Courses() {
     // Paginate the filtered courses
     const indexOfLastCourse = currentPage * coursesPerPage;
     const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
-    setDisplayedCourses(filteredCourses.slice(indexOfFirstCourse, indexOfLastCourse));
+    setDisplayedCourses(
+      filteredCourses.slice(indexOfFirstCourse, indexOfLastCourse)
+    );
   }, [filteredCourses, currentPage]);
 
   // Sort courses based on selected option
@@ -77,7 +79,9 @@ export default function Courses() {
       case "rating":
         return [...coursesToSort].sort((a, b) => b.rating - a.rating);
       case "newest":
-        return [...coursesToSort].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        return [...coursesToSort].sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
       case "popularity":
       default:
         return [...coursesToSort].sort((a, b) => b.students - a.students);
@@ -85,7 +89,10 @@ export default function Courses() {
   };
 
   // Get unique categories
-  const categories = ["All", ...new Set(courses.map(course => course.category))];
+  const categories = [
+    "All",
+    ...new Set(courses.map((course) => course.category)),
+  ];
   const levels = ["All", "Beginner", "Intermediate", "Advanced"];
 
   // Calculate total pages
@@ -101,8 +108,8 @@ export default function Courses() {
             Expand your skills with our expert-led courses
           </p>
         </div>
-        
-        <CourseFilters 
+
+        <CourseFilters
           categories={categories}
           levels={levels}
           selectedCategory={selectedCategory}
@@ -112,19 +119,20 @@ export default function Courses() {
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
         />
-        
+
         <div className="mb-6 flex justify-between items-center">
           <p className="text-gray-600">
-            {filteredCourses.length} {filteredCourses.length === 1 ? 'course' : 'courses'} found
+            {filteredCourses.length}{" "}
+            {filteredCourses.length === 1 ? "course" : "courses"} found
           </p>
           <CourseSorting sortBy={sortBy} setSortBy={setSortBy} />
         </div>
-        
+
         <CourseGrid courses={displayedCourses} isLoading={isLoading} />
-        
+
         {!isLoading && totalPages > 1 && (
           <div className="mt-8">
-            <CoursePagination 
+            <CoursePagination
               currentPage={currentPage}
               totalPages={totalPages}
               setCurrentPage={setCurrentPage}
