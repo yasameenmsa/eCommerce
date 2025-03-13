@@ -2,7 +2,7 @@
 const exampleCourses = [
   {
     id: "course-001",
-    title: "Complete Web Development Bootcamp",
+    title: "Complete Web Development Bootcamp ",
     instructor: "Dr. Angela Yu",
     description:
       "Learn to build websites with HTML, CSS, JavaScript, React, Node and more!",
