@@ -44,11 +44,11 @@ export default function Home() {
             <div className="md:w-1/2">
               <div className="relative h-64 md:h-96 w-full rounded-lg overflow-hidden shadow-xl">
                 <Image
-                  src="/images/hero.jpg"
+                  src="https://images.unsplash.com/photo-1607082349566-187342175e2f"
                   alt="E-commerce Platform"
                   fill
-                  style={{ objectFit: "cover" }}
                   priority
+                  className="object-cover"
                 />
               </div>
             </div>
