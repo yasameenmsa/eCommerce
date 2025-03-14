@@ -17,6 +17,9 @@ export default function Courses() {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("popularity");
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortOrder, setSortOrder] = useState("desc");
+  const [useExampleData, setUseExampleData] = useState(true);
   const coursesPerPage = 9;
 
   useEffect(() => {
@@ -28,37 +31,45 @@ export default function Courses() {
     }, 500);
   }, []);
 
-  useEffect(() => {
-    // Filter courses based on selected filters and search query
-    let result = [...courses];
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim() === "") return;
 
-    // Filter by category
-    if (selectedCategory !== "All") {
-      result = result.filter((course) => course.category === selectedCategory);
+    const filtered = courses.filter(
+      (course) =>
+        course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        course.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        course.instructor.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredCourses(filtered);
+    setCurrentPage(1);
+  };
+
+  const toggleExampleData = () => {
+    setUseExampleData(!useExampleData);
+    if (!useExampleData) {
+      setCourses(exampleCourses);
+      setFilteredCourses(exampleCourses);
+    } else {
+      // Here you would typically fetch real data
+      // For now, we'll just use the example data
+      setCourses(exampleCourses);
+      setFilteredCourses(exampleCourses);
     }
+    setCurrentPage(1);
+  };
 
-    // Filter by level
-    if (selectedLevel !== "All") {
-      result = result.filter((course) => course.level === selectedLevel);
-    }
-
-    // Filter by search query
-    if (searchQuery.trim() !== "") {
-      const query = searchQuery.toLowerCase();
-      result = result.filter(
-        (course) =>
-          course.title.toLowerCase().includes(query) ||
-          course.description.toLowerCase().includes(query) ||
-          course.instructor.toLowerCase().includes(query)
-      );
-    }
-
-    // Sort courses
-    result = sortCourses(result, sortBy);
-
-    setFilteredCourses(result);
-    setCurrentPage(1); // Reset to first page when filters change
-  }, [selectedCategory, selectedLevel, searchQuery, courses, sortBy]);
+  const handleSortChange = (order) => {
+    setSortOrder(order);
+    const sorted = [...filteredCourses].sort((a, b) => {
+      if (order === "desc") {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      }
+      return new Date(a.createdAt) - new Date(b.createdAt);
+    });
+    setFilteredCourses(sorted);
+    setCurrentPage(1);
+  };
 
   useEffect(() => {
     // Paginate the filtered courses
@@ -68,32 +79,6 @@ export default function Courses() {
       filteredCourses.slice(indexOfFirstCourse, indexOfLastCourse)
     );
   }, [filteredCourses, currentPage]);
-
-  // Sort courses based on selected option
-  const sortCourses = (coursesToSort, sortOption) => {
-    switch (sortOption) {
-      case "price-low":
-        return [...coursesToSort].sort((a, b) => a.price - b.price);
-      case "price-high":
-        return [...coursesToSort].sort((a, b) => b.price - a.price);
-      case "rating":
-        return [...coursesToSort].sort((a, b) => b.rating - a.rating);
-      case "newest":
-        return [...coursesToSort].sort(
-          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-        );
-      case "popularity":
-      default:
-        return [...coursesToSort].sort((a, b) => b.students - a.students);
-    }
-  };
-
-  // Get unique categories
-  const categories = [
-    "All",
-    ...new Set(courses.map((course) => course.category)),
-  ];
-  const levels = ["All", "Beginner", "Intermediate", "Advanced"];
 
   // Calculate total pages
   const totalPages = Math.ceil(filteredCourses.length / coursesPerPage);
@@ -109,16 +94,61 @@ export default function Courses() {
           </p>
         </div>
 
-        <CourseFilters
-          categories={categories}
-          levels={levels}
+        {/* Search Section */}
+        <div className="mt-10 mb-4">
+          <form onSubmit={handleSearch} className="flex gap-2">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search for courses..."
+              className="border p-2 rounded-md flex-grow"
+            />
+            <button
+              type="submit"
+              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+            >
+              Search
+            </button>
+          </form>
+        </div>
+
+        {/* Filter Section */}
+        <div className="mt-4 mb-4 flex justify-between items-center">
+          <h2 className="text-2xl font-bold">
+            Courses {useExampleData && "(Example Data)"}
+          </h2>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={toggleExampleData}
+              className="text-blue-600 hover:text-blue-800 text-sm"
+            >
+              {useExampleData ? "Load Real Data" : "Show Examples"}
+            </button>
+            <select
+              value={sortOrder}
+              onChange={(e) => handleSortChange(e.target.value)}
+              className="border p-2 rounded-md"
+            >
+              <option value="desc">Newest First</option>
+              <option value="asc">Oldest First</option>
+            </select>
+          </div>
+        </div>
+
+        {/* <CourseFilters
+          categories={[
+            "All",
+            ...new Set(courses.map((course) => course.category)),
+          ]}
+          levels={["All", "Beginner", "Intermediate", "Advanced"]}
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
           selectedLevel={selectedLevel}
           setSelectedLevel={setSelectedLevel}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
-        />
+        /> */}
 
         <div className="mb-6 flex justify-between items-center">
           <p className="text-gray-600">
